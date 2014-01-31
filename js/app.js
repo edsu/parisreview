@@ -60,7 +60,7 @@
       .data(links)
     .enter().append("line")
       .attr("class", "link")
-      .style("stroke", "#888")
+      .style("stroke", "#222")
       .style("stroke-width", 0.3);
 
   var node = svg.selectAll(".node")
@@ -68,13 +68,13 @@
     .enter().append("circle")
       .attr("class", "node")
       .attr("r", function(d) {return 3 + (d.size * 1.3);})
-      .attr("stroke-width", 0.5)
-      .attr("stroke", "#888")
+      .attr("stroke-width", 0.1)
+      .attr("stroke", "#555")
       .style("fill", function(d) {
         if (d.type == 'subject') {
-          return 'lightyellow';
+          return '#55f';
         } else {
-          return 'white';
+          return 'green';
         }
       })
       .on("mouseover", function() {force.stop();})
