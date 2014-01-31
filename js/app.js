@@ -30,15 +30,15 @@
         s = addToIndex(s);
         s.type = 'subject';
         links.push({source: r.id, target: s.id});
-        r.size += 0.3;
-        s.size += 0.3;
+        //r.size += 0.3;
+        //s.size += 0.3;
       });
     }
     if (r.influencedBy) {
       r.influencedBy.forEach(function(a) {
         a = addToIndex(a);
         links.push({source: r.id, target: a.id});
-        a.size += 0.3;
+        a.size += 0.2;
       });
     }
   });
@@ -49,11 +49,12 @@
 
   var force = d3.layout.force()
     .charge(-280)
-    .linkDistance(10)
+    .linkDistance(30)
     .gravity(0.7)
     .size([width, height])
     .nodes(nodes)
     .links(links)
+    .on('tick', tick)
     .start();
 
   var link = svg.selectAll(".link")
@@ -62,10 +63,9 @@
       .attr("class", "link")
 
   var node = svg.selectAll(".node")
-      .data(nodes)
-    .enter().append("circle")
+      .data(force.nodes())
+    .enter().append("g")
       .attr("class", function(d) {return "node " + d.type;})
-      .attr("r", function(d) {return 3 + (d.size * 1.3);})
       .on("mouseover", function() {force.stop();})
       .on("mouseout", function() {force.start();})
       .on("click", function(d) {
@@ -73,18 +73,24 @@
       })
       .call(force.drag);
 
+  node.append("circle")
+      .attr("r", function(d) {return 3 + (d.size * 1.3);});
+
   node.append("title")
     .text(function(d) {return d["title"];});
+  
+  node.append("text")
+    .text(function(d) {return d.title;});
 
-  force.on("tick", function() {
+  function tick() {
     link.attr("x1", function(d) { return d.source.x; })
         .attr("y1", function(d) { return d.source.y; })
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
 
-    node.attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; });
-  });
+    node
+      .attr("transform", function(d) {return "translate(" + d.x + "," + d.y + ")"; });
+  }
 
 })();
 

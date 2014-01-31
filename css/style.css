@@ -26,13 +26,13 @@ header a:hover {
     color: red;
 }
 
-circle.interview {
+.interview circle {
     fill: white;
     stroke-width: 2;
     stroke: #555;
 }
 
-circle.subject {
+.subject circle {
     fill: #55f;
 }
 
@@ -43,4 +43,13 @@ circle {
 line {
     stroke: #222;
     stroke-width: 0.3;
+}
+
+.node text {
+  font-size: 7pt;
+  display: none;
+}
+
+.subject text {
+  display: inline;
 }
