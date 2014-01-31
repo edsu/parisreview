@@ -1,0 +1,6 @@
+lxml
+pyld
+rdflib
+wplinks
+requests
+https://github.com/RDFLib/rdflib-jsonld/archive/master.zip
