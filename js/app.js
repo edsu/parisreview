@@ -47,6 +47,10 @@
     .attr("width", width)
     .attr("height", height);
 
+  var vis = svg.append('g')
+    .call(d3.behavior.zoom().on("zoom", rescale))
+    .on("dblclick.zoom", null)
+
   var force = d3.layout.force()
     .charge(-280)
     .linkDistance(30)
@@ -57,18 +61,16 @@
     .on('tick', tick)
     .start();
 
-  var link = svg.selectAll(".link")
+  var link = vis.selectAll(".link")
       .data(links)
     .enter().append("line")
       .attr("class", "link")
 
-  var node = svg.selectAll(".node")
+  var node = vis.selectAll(".node")
       .data(force.nodes())
     .enter().append("g")
       .attr("class", function(d) {return "node " + d.type;})
-      .on("mouseover", function() {force.stop();})
-      .on("mouseout", function() {force.start();})
-      .on("click", function(d) {
+      .on("dblclick", function(d) {
         window.open(d['@id'], '_blank');
       })
       .call(force.drag);
@@ -90,6 +92,14 @@
 
     node
       .attr("transform", function(d) {return "translate(" + d.x + "," + d.y + ")"; });
+  }
+
+  function rescale() {
+    trans=d3.event.translate;
+    scale=d3.event.scale;
+    vis.attr("transform",
+        "translate(" + trans + ")"
+        + " scale(" + scale + ")");
   }
 
 })();
