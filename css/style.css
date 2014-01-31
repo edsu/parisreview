@@ -1,21 +1,46 @@
+body {
+    font-family: Monaco;
+}
+
 #viz {
   width: 1000;
   height: 850;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
 }
 
 header {
-    font-size: 16pt;
+    font-size: 18pt;
     text-align: center;
     margin-bottom: 20px;
+    font-weight: bold;
 }
 
 header a {
-    color: #ccc;
+    color: black;
     text-decoration: none;
 }
 
 header a:hover {
     color: red;
+}
+
+circle.interview {
+    fill: white;
+    stroke-width: 2;
+    stroke: #555;
+}
+
+circle.subject {
+    fill: #55f;
+}
+
+circle {
+    fill: #f55;
+}
+
+line {
+    stroke: #222;
+    stroke-width: 0.3;
 }

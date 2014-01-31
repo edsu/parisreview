@@ -25,7 +25,7 @@
   ParisReview["@graph"].forEach(function(r) {
     r = addToIndex(r);
     if (r.subject) {
-      r.type = 'article'
+      r.type = 'interview'
       r.subject.forEach(function(s) {
         s = addToIndex(s);
         s.type = 'subject';
@@ -60,23 +60,12 @@
       .data(links)
     .enter().append("line")
       .attr("class", "link")
-      .style("stroke", "#222")
-      .style("stroke-width", 0.3);
 
   var node = svg.selectAll(".node")
       .data(nodes)
     .enter().append("circle")
-      .attr("class", "node")
+      .attr("class", function(d) {return "node " + d.type;})
       .attr("r", function(d) {return 3 + (d.size * 1.3);})
-      .attr("stroke-width", 0.1)
-      .attr("stroke", "#555")
-      .style("fill", function(d) {
-        if (d.type == 'subject') {
-          return '#55f';
-        } else {
-          return 'green';
-        }
-      })
       .on("mouseover", function() {force.stop();})
       .on("mouseout", function() {force.start();})
       .on("click", function(d) {
